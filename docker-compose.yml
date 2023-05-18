@@ -1,0 +1,44 @@
+version: "3.8"
+
+services:
+  pg:
+    restart: unless-stopped
+    container_name: pg_db
+    image: postgres:14-alpine
+    environment:
+      - POSTGRES_USER=root
+      - POSTGRES_PASSWORD=password
+      - POSTGRES_DB=employees
+    ports:
+      - 5432:5432
+    volumes:
+      - ./scripts/init.sql:/docker-entrypoint-initdb.d/init.sql
+      - pg_data:/var/lib/postgresql/data
+    networks:
+      cloud_manager:
+        ipv4_address: 172.23.0.9
+  # client:
+  #   restart: unless-stopped
+  #   container_name: client-app
+  #   networks:
+  #     cloud_manager:
+  #       ipv4_address: 172.23.0.3
+
+  # server:
+  #   restart: unless-stopped
+  #   container_name: server-app
+  #   networks:
+  #     cloud_manager:
+  #       ipv4_address: 172.23.0.5
+
+networks:
+  cloud_manager:
+    driver: bridge
+    ipam:
+      driver: default
+      config:
+        - subnet: 172.23.0.0/24
+          gateway: 172.23.0.1
+
+volumes:
+  pg_data:
