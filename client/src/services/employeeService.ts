@@ -1,23 +1,42 @@
 import Employee from "../models/employee";
+import EmployeeListResponse from "../models/employeeListResponse";
 import EmployeeResponse from "../models/employeeResponse";
 
 class EmployeeService {
-    _route: string
+    route: string
 
     constructor() {
-        this._route = `${process.env.REACT_APP_API_URL}/employees`;
+        this.route = `${process.env.REACT_APP_API_URL}/employees`;
     }
 
-    async getEmployees() {
+    async getEmployees(): Promise<EmployeeListResponse> {
         const specs = {
             method: "GET",
             headers: {
                 "Content-Type": "application/json"
             }
         };
-        const response = await fetch(this._route, specs);
+        const response = await fetch(this.route, specs);
+        const data = await response.json();
+        const employeeResponse = new EmployeeListResponse(data.employees((e: any) => new Employee(e)));
 
-        return response.json();
+        return employeeResponse;
+    }
+
+    async getEmployee(id: string): Promise<EmployeeResponse> {
+        const specs = {
+            method: "GET",
+            headers: {
+                "Content-Type": "application/json"
+            }
+        };
+        const url = `${this.route}/${id}`
+        const response = await fetch(url, specs);
+        const data = await response.json();
+
+        const employeeResponse = new EmployeeResponse(data.employee)
+
+        return employeeResponse;
     }
 
 }

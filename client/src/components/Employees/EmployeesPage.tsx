@@ -7,8 +7,8 @@ import { Observer } from "mobx-react";
 function EmployeePage() {
     return <Observer>{() => {
         return (
-            <Grid container spacing={0}>
-                <Grid item xs={12} md={12}>
+            <Grid container spacing={0} alignItems="center" justifyContent="center">
+                <Grid item xs={8} md={8}>
                     <Table></Table>
                 </Grid>
             </Grid>
