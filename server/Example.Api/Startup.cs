@@ -24,6 +24,7 @@ namespace Example.Api
 
             string connectionString = $"Host={dbHost}; Port={dbPort}; Database={dbName}; Username={dbUser}; Password={dbPassword}";
 
+            services.AddCors();
             services.AddControllers();
             services.AddDbContext<AppDbContext>(options =>
             {
@@ -48,6 +49,12 @@ namespace Example.Api
             {
                 app.UseDeveloperExceptionPage();
             }
+            app.UseCors(options => options
+                .AllowAnyMethod()
+                .AllowAnyHeader()
+                .AllowCredentials()
+                .SetIsOriginAllowed(origin => true)
+            );
 
             app.UsePathBase(new PathString("/api/v1"));
             app.UseRouting();

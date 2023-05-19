@@ -19,9 +19,20 @@ class EmployeeService {
         };
         const response = await fetch(this.route, specs);
         const data = await response.json();
-        const employeeResponse = new EmployeeListResponse(data.employees((e: any) => new Employee(e)));
-
-        console.log(employeeResponse);
+        const employeeResponse = new EmployeeListResponse(data.employees
+            .map((e: any) =>
+                new Employee(
+                    {
+                        _id: e.id,
+                        _firstName: e.firstName,
+                        _lastName: e.lastName,
+                        _salary: e.salary,
+                        _createdAt: e.createdAt,
+                        _updatedAt: e.updatedAt
+                    }
+                )
+            )
+        );
 
         return employeeResponse;
     }
@@ -37,7 +48,17 @@ class EmployeeService {
         const response = await fetch(url, specs);
         const data = await response.json();
 
-        const employeeResponse = new EmployeeResponse(data.employee)
+        const employeeResponse = new EmployeeResponse(
+            new Employee(
+                {
+                    _id: data.employee.id,
+                    _firstName: data.employee.firstName,
+                    _lastName: data.employee.lastName,
+                    _salary: data.employee.salary,
+                    _createdAt: data.employee.createdAt,
+                    _updatedAt: data.employee.updatedAt
+                })
+        );
 
         return employeeResponse;
     }
