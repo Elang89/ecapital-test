@@ -10,6 +10,7 @@ class EmployeeService {
     }
 
     async getEmployees(): Promise<EmployeeListResponse> {
+
         const specs = {
             method: "GET",
             headers: {
@@ -19,6 +20,8 @@ class EmployeeService {
         const response = await fetch(this.route, specs);
         const data = await response.json();
         const employeeResponse = new EmployeeListResponse(data.employees((e: any) => new Employee(e)));
+
+        console.log(employeeResponse);
 
         return employeeResponse;
     }
