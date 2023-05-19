@@ -50,6 +50,7 @@ namespace Example.Api.Models.Employees
         public DateTimeOffset? CreatedAt { get; set; }
 
         [Column("updated_at")]
+        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         [JsonIgnore]
         public DateTimeOffset? UpdatedAt { get; set; }
     }
