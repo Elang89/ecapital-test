@@ -1,3 +1,4 @@
+using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Text.Json.Serialization;
@@ -29,29 +30,29 @@ namespace Example.Api.Models.Employees
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         [Column("id")]
-        [JsonIgnore]
         public Guid Id { get; set; }
 
         [Required]
+        [DefaultValue("John")]
         [Column("first_name")]
         public string? FirstName { get; set; }
 
         [Required]
+        [DefaultValue("Waters")]
         [Column("last_name")]
         public string? LastName { get; set; }
 
         [Required]
+        [DefaultValue("50000")]
         [Column("salary")]
         public decimal Salary { get; set; }
 
         [Column("created_at")]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
-        [JsonIgnore]
         public DateTimeOffset? CreatedAt { get; set; }
 
         [Column("updated_at")]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
-        [JsonIgnore]
         public DateTimeOffset? UpdatedAt { get; set; }
     }
 }
