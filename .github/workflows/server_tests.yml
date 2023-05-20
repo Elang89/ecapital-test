@@ -17,7 +17,9 @@ jobs:
         with:
           dotnet-version: ${{ matrix.dotnet-version }}
       - name: Install dependencies
-        run: dotnet restore
+        run: dotnet restore server/Example.Api
+      - name: Install dependencies (Test)
+        run: dotnet restores server/Example.Tests
       - name: Build
         run: dotnet build --configuration Release --no-restore server/Example.Api
       - name: Test
