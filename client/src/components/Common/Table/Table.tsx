@@ -72,24 +72,31 @@ const EnhancedTable: React.FC<ITableProps> = ({ employeeService }) => {
     };
 
     const processRowUpdate = (newRow: GridRowModel) => {
+        let isUpdate = false;
         const updatedRow = { ...newRow, isNew: false };
-        setRows(rows.map((row) => (row.id === newRow.id ? updatedRow : row)));
+        const newEmployee = new Employee({
+            _id: newRow.id,
+            _firstName: newRow.firstName,
+            _lastName: newRow.lastName,
+            _salary: newRow.salary,
+            _createdAt: newRow.createdAt,
+            _updatedAt: newRow.updatedAt
+        });
 
+        setRows(rows.map((row) => (row.id === newRow.id ? updatedRow : row)));
         setEmployees(employees.map(e => {
             if (e.id === newRow.id) {
-                const updatedEmployee = new Employee({
-                    _id: newRow.id,
-                    _firstName: newRow.firstName,
-                    _lastName: newRow.lastName,
-                    _salary: newRow.salary,
-                    _createdAt: newRow.createdAt,
-                    _updatedAt: newRow.updatedAt
-                })
-                employeeService.updateEmployee(e.id, updatedEmployee);
-                return updatedEmployee;
+                isUpdate = true;
             }
-            return e;
+            return newEmployee;
         }));
+
+        if (isUpdate) {
+            employeeService.updateEmployee(newEmployee.id, newEmployee);
+        } else {
+            employeeService.createEmployee(newEmployee);
+            employees.push(newEmployee);
+        }
 
         return updatedRow;
     };
@@ -171,6 +178,12 @@ const EnhancedTable: React.FC<ITableProps> = ({ employeeService }) => {
             onRowEditStart={handleRowEditStart}
             onRowEditStop={handleRowEditStop}
             processRowUpdate={processRowUpdate}
+            slots={{
+                toolbar: EditToolbar,
+            }}
+            slotProps={{
+                toolbar: { setRows, setRowModesModel, employeeService }
+            }}
         />
     );
 }
