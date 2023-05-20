@@ -1,4 +1,16 @@
-import { DataGrid, GridActionsCellItem, GridColDef, GridEventListener, GridRowId, GridRowModel, GridRowModes, GridRowModesModel, GridRowParams, GridRowsProp, MuiEvent } from "@mui/x-data-grid";
+import {
+    DataGrid,
+    GridActionsCellItem,
+    GridColDef,
+    GridEventListener,
+    GridRowId,
+    GridRowModel,
+    GridRowModes,
+    GridRowModesModel,
+    GridRowParams,
+    GridRowsProp,
+    MuiEvent
+} from "@mui/x-data-grid";
 import EditToolbar from "./EditToolbar";
 import React, { SyntheticEvent, useEffect, useState } from "react";
 import Employee from "../../../models/employee";
@@ -30,7 +42,7 @@ const EnhancedTable: React.FC<ITableProps> = ({ employeeService }) => {
         }
 
         apiCall();
-    }, []);
+    }, []); // eslint-disable-line react-hooks/exhaustive-deps
 
 
     const handleRowEditStart = (
@@ -182,7 +194,7 @@ const EnhancedTable: React.FC<ITableProps> = ({ employeeService }) => {
                 toolbar: EditToolbar,
             }}
             slotProps={{
-                toolbar: { setRows, setRowModesModel, employeeService }
+                toolbar: { setRows, setRowModesModel }
             }}
         />
     );

@@ -17,7 +17,7 @@ interface EditToolbarProps {
 }
 
 const EditToolbar: React.FC<EditToolbarProps> = (props: EditToolbarProps) => {
-    const { setRows, setRowModesModel, employeeService } = props;
+    const { setRows, setRowModesModel } = props;
 
     const handleClick = () => {
         const id = uuidv4();

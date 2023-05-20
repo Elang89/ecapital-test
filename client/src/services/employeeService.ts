@@ -1,4 +1,3 @@
-import { ThirtyFpsSelectSharp } from "@mui/icons-material";
 import Employee from "../models/employee";
 import EmployeeListResponse from "../models/employeeListResponse";
 import EmployeeRequest from "../models/employeeRequest";
