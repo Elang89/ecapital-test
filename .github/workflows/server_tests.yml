@@ -19,7 +19,7 @@ jobs:
       - name: Install dependencies
         run: dotnet restore server/Example.Api
       - name: Install dependencies (Test)
-        run: dotnet restores server/Example.Tests
+        run: dotnet restore server/Example.Tests
       - name: Build
         run: dotnet build --configuration Release --no-restore server/Example.Api
       - name: Test
