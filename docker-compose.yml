@@ -17,19 +17,39 @@ services:
     networks:
       cloud_manager:
         ipv4_address: 172.23.0.9
-  # client:
-  #   restart: unless-stopped
-  #   container_name: client-app
-  #   networks:
-  #     cloud_manager:
-  #       ipv4_address: 172.23.0.3
 
-  # server:
-  #   restart: unless-stopped
-  #   container_name: server-app
-  #   networks:
-  #     cloud_manager:
-  #       ipv4_address: 172.23.0.5
+  server:
+    image: example-api:latest
+    restart: unless-stopped
+    container_name: server-app
+    depends_on:
+      - pg
+    environment:
+      - DB_HOST=172.23.0.9
+      - DB_PORT=5432
+      - DB_NAME=employees
+      - DB_USER=root
+      - DB_PASSWORD=password
+    ports:
+      - 8000:80
+    networks:
+      cloud_manager:
+        ipv4_address: 172.23.0.5
+
+  client:
+    image: example-client:latest
+    restart: unless-stopped
+    container_name: client-app
+    environment:
+      - NODE_ENV=development
+      - REACT_APP_API_URL=http://172.23.0.5:80/api/v1
+    depends_on:
+      - server
+    ports:
+      - 3000:3000
+    networks:
+      cloud_manager:
+        ipv4_address: 172.23.0.3
 
 networks:
   cloud_manager:

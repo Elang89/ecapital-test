@@ -7,7 +7,7 @@ CREATE TABLE employees (
     salary NUMERIC NOT NULL,
     created_at TIMESTAMPTZ NOT NULL DEFAULT NOW(),
     updated_at TIMESTAMPTZ NOT NULL DEFAULT NOW(),
-    CONSTRAINT pkey_item PRIMARY KEY(id)
+    CONSTRAINT pkey_employee PRIMARY KEY(id)
 );
 
 
