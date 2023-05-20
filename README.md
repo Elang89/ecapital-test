@@ -15,7 +15,8 @@ insert, delete, update and fetch data.
 ## How to use (Local)
 
 1. First run `docker compose up -d --build pg` to set up the database.
-2. Second cd to server/Example.Api and run `dotnet run`
+2. Second cd to server/Example.Api and run `dotnet run` and also create a .env file as 
+specified in the .env.example.
 3. Third cd to client and run npm start.
 4. To access the Open API docs for the REST API go to localhost:8000/swagger
 

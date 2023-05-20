@@ -2,6 +2,7 @@ using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Text.Json.Serialization;
+using Microsoft.EntityFrameworkCore;
 
 namespace Example.Api.Models.Employees
 {
@@ -44,7 +45,8 @@ namespace Example.Api.Models.Employees
 
         [Required]
         [DefaultValue("50000")]
-        [Column("salary")]
+        [Precision(18, 4)]
+        [Column("salary", TypeName = "decimal(18,4)")]
         public decimal Salary { get; set; }
 
         [Column("created_at")]
